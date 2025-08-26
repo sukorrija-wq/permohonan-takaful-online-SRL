@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Borang Permohonan Takaful – Sukor Rija Legacy</title>
+  <meta name="description" content="Borang permohonan takaful atas talian untuk pelanggan Sukor Rija Legacy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Docx generator (client-side) -->
+  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+  <style>
+    body{font-family:Inter,system-ui,Arial,sans-serif}
+    .card{box-shadow:0 2px 20px rgba(2,6,23,.08)}
+    .required:after{content:" *";color:#ef4444}
+    .hint{font-size:.8rem;color:#6b7280}
+    .badge{background:#eef2ff;color:#3730a3;padding:.125rem .5rem;border-radius:.5rem;font-size:.75rem}
+    .toast{position:fixed;right:1rem;bottom:1rem;background:#111827;color:#f9fafb;padding:.75rem 1rem;border-radius:.75rem;box-shadow:0 8px 24px rgba(0,0,0,.18);display:none;z-index:50}
+    .step-dot{width:.625rem;height:.625rem;border-radius:9999px;background:#e5e7eb}
+    .step-dot.active{background:#111827}
+    .section-title{display:flex;align-items:center;gap:.5rem}
+    .section-title .tag{font-size:.65rem;padding:.125rem .5rem;border-radius:.5rem;background:#f1f5f9;color:#0f172a}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <header class="bg-white/80 backdrop-blur sticky top-0 z-40 border-b">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-indigo-600 grid place-items-center text-white font-bold">SRL</div>
+        <div>
+          <div class="font-semibold">Sukor Rija Legacy</div>
+          <div class="text-xs text-slate-500">Borang Permohonan Takaful</div>
+        </div>
+      </div>
+      <a href="https://wa.me/60169514414" class="text-sm underline">WhatsApp Bantuan</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6">
+    <div class="bg-white rounded-2xl card p-6 md:p-8">
+      <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold">Isi Borang Permohonan</h1>
+        <div class="flex items-center gap-2" aria-label="Langkah">
+          <span class="step-dot active" id="dot1"></span>
+          <span class="step-dot" id="dot2"></span>
+          <span class="step-dot" id="dot3"></span>
+        </div>
+      </div>
+
+      <div class="mb-6 p-4 rounded-xl bg-indigo-50 border border-indigo-100 text-sm">
+        Maklumat ini digunakan untuk pra-pendaftaran permohonan takaful. <span class="badge">PDPA</span> Kami menjaga kerahsiaan data anda.
+      </div>
+
+      <form id="borang" class="grid gap-8">
+        <!-- STEP 1: Maklumat Pemohon -->
+        <section data-step="1" class="grid gap-4">
+          <div class="section-title"><h2 class="text-lg font-semibold">1) Maklumat Pemohon</h2><span class="tag">Wajib</span></div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="required block text-sm mb-1" for="nama">Nama Penuh (ikut IC)</label>
+              <input id="nama" name="nama" type="text" class="w-full border rounded-xl px-3 py-2" required />
+            </div>
+            <div>
+              <label class="required block text-sm mb-1" for="ic">No. IC</label>
+              <input id="ic" name="ic" inputmode="numeric" placeholder="contoh: 830101011111" class="w-full border rounded-xl px-3 py-2" required />
+              <div class="hint">Tanpa dash (-)</div>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-4">
+            <div>
+              <label class="required block text-sm mb-1" for="jantina">Jantina</label>
+              <select id="jantina" name="jantina" class="w-full border rounded-xl px-3 py-2" required>
+                <option value="">— Pilih —</option>
+                <option>Lelaki</option>
+                <option>Perempuan</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="agama">Agama</label>
+              <input id="agama" name="agama" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+            <div>
+              <label class="required block text-sm mb-1" for="status">Status Diri</label>
+              <select id="status" name="status" class="w-full border rounded-xl px-3 py-2" required>
+                <option value="">— Pilih —</option>
+                <option>Bujang</option>
+                <option>Berkahwin</option>
+                <option>Bercerai</option>
+                <option>Duda/Janda</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="bil_anak">Bil. Anak</label>
+              <input id="bil_anak" name="bil_anak" type="number" min="0" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm mb-1" for="pekerjaan">Pekerjaan</label>
+              <input id="pekerjaan" name="pekerjaan" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="tugas_pekerjaan">Tugas Pekerjaan</label>
+              <input id="tugas_pekerjaan" name="tugas_pekerjaan" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm mb-1" for="syarikat">Nama & Alamat Syarikat</label>
+              <textarea id="syarikat" name="syarikat" class="w-full border rounded-xl px-3 py-2" rows="2"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="alamat">Alamat Rumah</label>
+              <textarea id="alamat" name="alamat" class="w-full border rounded-xl px-3 py-2" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-5 gap-4">
+            <div>
+              <label class="required block text-sm mb-1" for="telefon">Telefon (WhatsApp)</label>
+              <input id="telefon" name="telefon" type="tel" placeholder="6016xxxxxxxx" class="w-full border rounded-xl px-3 py-2" required />
+              <div class="hint">Gunakan format 6 0 x x … tanpa 0 di depan</div>
+            </div>
+            <div class="md:col-span-2">
+              <label class="required block text-sm mb-1" for="email">Emel</label>
+              <input id="email" name="email" type="email" class="w-full border rounded-xl px-3 py-2" required />
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="pendapatan_tahunan">Pendapatan Tahunan (RM)</label>
+              <input id="pendapatan_tahunan" name="pendapatan_tahunan" type="number" min="0" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-sm mb-1" for="tinggi_cm">Tinggi (cm)</label>
+                <input id="tinggi_cm" name="tinggi_cm" type="number" min="0" class="w-full border rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block text-sm mb-1" for="berat_kg">Berat (kg)</label>
+                <input id="berat_kg" name="berat_kg" type="number" min="0" class="w-full border rounded-xl px-3 py-2" />
+              </div>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm mb-1" for="merokok">Merokok</label>
+              <select id="merokok" name="merokok" class="w-full border rounded-xl px-3 py-2">
+                <option value="Tidak">Tidak</option>
+                <option value="Ya">Ya</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm mb-1" for="bil_rokok">Bilangan (batang/hari)</label>
+              <input id="bil_rokok" name="bil_rokok" type="number" min="0" class="w-full border rounded-xl px-3 py-2" />
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 2: Pasangan, OYD, Penama & Pelan -->
+        <section data-step="2" class="grid gap-6 hidden">
+          <div class="section-title"><h2 class="text-lg font-semibold">2) Maklumat Pasangan (jika berkahwin)</h2><span class="tag">Optional</span></div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="psg_nama" name="psg_nama" placeholder="Nama Penuh" class="border rounded-xl px-3 py-2" />
+            <input id="psg_ic" name="psg_ic" placeholder="No. IC" class="border rounded-xl px-3 py-2" />
+            <input id="psg_jantina" name="psg_jantina" placeholder="Jantina" class="border rounded-xl px-3 py-2" />
+            <input id="psg_agama" name="psg_agama" placeholder="Agama" class="border rounded-xl px-3 py-2" />
+            <input id="psg_pekerjaan" name="psg_pekerjaan" placeholder="Pekerjaan" class="border rounded-xl px-3 py-2" />
+            <input id="psg_tel" name="psg_tel" placeholder="No. Tel" class="border rounded-xl px-3 py-2" />
+            <input id="psg_email" name="psg_email" placeholder="Email" type="email" class="border rounded-xl px-3 py-2" />
+          </div>
+          <textarea id="psg_syarikat" name="psg_syarikat" placeholder="Nama & Alamat Syarikat / Alamat Rumah" class="border rounded-xl px-3 py-2" rows="2"></textarea>
+          <div class="grid md:grid-cols-3 gap-4">
+            <select id="psg_merokok" name="psg_merokok" class="border rounded-xl px-3 py-2"><option value="Tidak">Merokok? Tidak</option><option value="Ya">Ya</option></select>
+            <input id="psg_bil_rokok" name="psg_bil_rokok" placeholder="Bilangan (batang/hari)" type="number" class="border rounded-xl px-3 py-2" />
+            <select id="psg_status" name="psg_status" class="border rounded-xl px-3 py-2"><option value="">Status Diri</option><option>Berkahwin</option><option>Bujang</option><option>Bercerai</option></select>
+          </div>
+
+          <div class="section-title mt-4 items-center gap-3">
+            <h2 class="text-lg font-semibold">Orang Yang Dilindungi</h2>
+            <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="sameAsPemohon" class="w-4 h-4"> Sama seperti Pemohon</label>
+            <span class="tag">Jika berbeza dengan Pemohon</span>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="oyd_nama" name="oyd_nama" placeholder="Nama" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_ic" name="oyd_ic" placeholder="No. IC" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_jantina" name="oyd_jantina" placeholder="Jantina" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_pekerjaan" name="oyd_pekerjaan" placeholder="Pekerjaan" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_tugas" name="oyd_tugas" placeholder="Tugas Pekerjaan" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_pendapatan_tahunan" name="oyd_pendapatan_tahunan" placeholder="Pendapatan Tahunan (RM)" type="number" class="border rounded-xl px-3 py-2" />
+          </div>
+          <textarea id="oyd_syarikat" name="oyd_syarikat" placeholder="Nama/Alamat Syarikat / Tempat Belajar" class="border rounded-xl px-3 py-2" rows="2"></textarea>
+          <div class="grid md:grid-cols-3 gap-4">
+            <input id="oyd_tinggi_cm" name="oyd_tinggi_cm" placeholder="Tinggi (cm)" type="number" class="border rounded-xl px-3 py-2" />
+            <input id="oyd_berat_kg" name="oyd_berat_kg" placeholder="Berat (kg)" type="number" class="border rounded-xl px-3 py-2" />
+            <select id="oyd_merokok" name="oyd_merokok" class="border rounded-xl px-3 py-2"><option value="Tidak">Merokok? Tidak</option><option value="Ya">Ya</option></select>
+          </div>
+
+          <div class="section-title mt-4"><h2 class="text-lg font-semibold">Penama (Nominee)</h2><span class="tag">Wajib untuk Hibah</span></div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="penama_nama" name="penama_nama" placeholder="Nama" class="border rounded-xl px-3 py-2" />
+            <input id="penama_ic" name="penama_ic" placeholder="No. IC" class="border rounded-xl px-3 py-2" />
+            <input id="penama_telefon" name="penama_telefon" placeholder="No. Tel" class="border rounded-xl px-3 py-2" />
+            <input id="penama_pekerjaan" name="penama_pekerjaan" placeholder="Pekerjaan" class="border rounded-xl px-3 py-2" />
+          </div>
+          <textarea id="penama_alamat" name="penama_alamat" placeholder="Alamat / Alamat Syarikat" class="border rounded-xl px-3 py-2" rows="2"></textarea>
+
+          <div class="section-title mt-4"><h2 class="text-lg font-semibold">Pilihan Pelan & Bayaran</h2></div>
+          <div class="grid md:grid-cols-4 gap-4">
+            <input id="pelan" name="pelan" placeholder="Pelan (cth: Term/Al-Shams)" class="border rounded-xl px-3 py-2" />
+            <input id="mod_bayaran" name="mod_bayaran" placeholder="Mod Bayaran (cth: Bulanan)" class="border rounded-xl px-3 py-2" />
+            <input id="kaedah_bayaran" name="kaedah_bayaran" placeholder="Kaedah (cth: Auto-debit)" class="border rounded-xl px-3 py-2" />
+            <input id="premium_rm" name="premium_rm" placeholder="Caruman (RM)" type="number" class="border rounded-xl px-3 py-2" />
+          </div>
+
+          <div class="section-title mt-4"><h2 class="text-lg font-semibold">Maklumat Bank Pemohon</h2><span class="tag">Wajib</span></div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <input id="bank_pemohon" name="bank_pemohon" placeholder="Nama Bank" class="border rounded-xl px-3 py-2" />
+            <input id="akaun_pemohon" name="akaun_pemohon" placeholder="No. Akaun" class="border rounded-xl px-3 py-2" />
+          </div>
+        </section>
+
+        <!-- STEP 3: Kesihatan, Deklarasi & Hantar -->
+        <section data-step="3" class="grid gap-4 hidden">
+          <div class="section-title"><h2 class="text-lg font-semibold">3) Kesihatan & Deklarasi</h2></div>
+          <p class="text-sm text-slate-600">Soalan ringkas untuk semakan awal (underwriting). Jawab dengan jujur.</p>
+          <div class="grid md:grid-cols-2 gap-3">
+            <label class="block"><span class="required">Pernah disahkan penyakit kronik?</span>
+              <select id="kronik" class="w-full border rounded-xl px-3 py-2" required>
+                <option value="">— Pilih —</option>
+                <option>Ya</option>
+                <option>Tidak</option>
+              </select>
+            </label>
+            <label class="block"><span class="required">Pernah ditolak permohonan takaful/insurans?</span>
+              <select id="ditolak" class="w-full border rounded-xl px-3 py-2" required>
+                <option value="">— Pilih —</option>
+                <option>Ya</option>
+                <option>Tidak</option>
+              </select>
+            </label>
+          </div>
+          <div class="grid md:grid-cols-4 gap-3">
+            <input id="sakit" placeholder="Sakit / Kecederaan" class="border rounded-xl px-3 py-2" />
+            <input id="hospital" placeholder="Hospital/Rawatan" class="border rounded-xl px-3 py-2" />
+            <input id="tahun" placeholder="Tahun" type="number" class="border rounded-xl px-3 py-2" />
+            <input id="kondisi" placeholder="Kondisi / Status Kini" class="border rounded-xl px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm mb-1" for="butiran_sihat">Butiran tambahan (jika ada)</label>
+            <textarea id="butiran_sihat" rows="2" class="w-full border rounded-xl px-3 py-2"></textarea>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-3 mt-2">
+            <div class="flex items-center gap-2"><input id="setuju" type="checkbox" class="w-4 h-4" required><label for="setuju">Saya mengesahkan maklumat ini benar & memberi kebenaran menghubungi saya.</label></div>
+            <div class="flex items-center gap-2"><input id="pdpa" type="checkbox" class="w-4 h-4" required><label for="pdpa">Saya bersetuju dengan notis PDPA & akan berkongsi salinan IC melalui saluran selamat.</label></div>
+          </div>
+
+          <div class="grid gap-3 mt-2">
+            <label class="flex items-center gap-2 text-sm"><input id="jana_docx" type="checkbox" class="w-4 h-4" checked> Jana salinan <b>.docx</b> untuk dimuat turun</label>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-end mt-2">
+            <div>
+              <label class="required block text-sm mb-1" for="captcha">Pengesahan Manusia</label>
+              <div class="flex items-center gap-2">
+                <input id="captcha" class="border rounded-xl px-3 py-2" placeholder="Jawapannya" required />
+                <span id="captchaQ" class="px-3 py-2 bg-slate-100 rounded-lg text-sm"></span>
+                <button type="button" id="refreshCap" class="text-sm underline">Tukar</button>
+              </div>
+            </div>
+            <button id="hantar" class="px-5 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">HANTAR PERMOHONAN</button>
+          </div>
+
+          <p class="text-xs text-slate-500">Nota: Tandatangan & dokumen akan dibuat semasa sesi eKYC / serahan dokumen. "Quotation" akan dikeluarkan selepas semakan data.</p>
+        </section>
+
+        <!-- Nav buttons -->
+        <div class="flex items-center justify-between pt-2">
+          <button type="button" id="btnBack" class="px-4 py-2 rounded-lg border hidden">Kembali</button>
+          <div class="ml-auto flex gap-2">
+            <button type="button" id="btnDraft" class="px-4 py-2 rounded-lg border">Simpan Draf</button>
+            <button type="button" id="btnNext" class="px-4 py-2 rounded-lg bg-slate-900 text-white">Seterusnya</button>
+          </div>
+        </div>
+      </form>
+
+      <p class="text-xs text-slate-500 mt-6">
+        Dibangunkan oleh <span class="font-semibold">Lisa (ChatGPT)</span> · Powered by <span class="font-semibold">Sukor Rija Legacy</span>
+      </p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ====== CONFIG ======
+    const SCRIPT_URL = "https://script.google.com/macros/s/PASTE_YOUR_DEPLOYMENT_ID_HERE/exec"; // <-- gantikan dgn URL Web App Google Apps Script
+    const WHATSAPP_NO = "60169514414"; // tanpa +
+
+    // ====== UTIL ======
+    const $ = (q)=>document.querySelector(q);
+    const showToast=(msg)=>{const t=$('#toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2800)}
+    const steps=[...document.querySelectorAll('section[data-step]')];
+    let step=1; const maxStep=steps.length;
+
+    function showStep(n){steps.forEach(s=>s.classList.add('hidden'));document.querySelector(`[data-step="${n}"]`).classList.remove('hidden');
+      $('#btnBack').classList.toggle('hidden',n===1); $('#btnNext').classList.toggle('hidden',n===maxStep);
+      for(let i=1;i<=maxStep;i++){document.getElementById('dot'+i).classList.toggle('active', i<=n)}
+      step=n; window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function genCaptcha(){const a=Math.floor(3+Math.random()*7), b=Math.floor(2+Math.random()*6); const op=['+','-'][Math.floor(Math.random()*2)];
+      $('#captchaQ').textContent = `${a} ${op} ${b} = ?`; return (op==='+'?a+b:a-b);
+    }
+    let captchaAns = genCaptcha();
+    $('#refreshCap').addEventListener('click',()=>{captchaAns=genCaptcha()});
+
+    // Input masks
+    $('#ic').addEventListener('input',e=>{e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,12)});
+    $('#telefon').addEventListener('input',e=>{e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,12)});
+    const icLike=['psg_ic','oyd_ic','penama_ic']; icLike.forEach(id=>{const el=document.getElementById(id); if(el){el.addEventListener('input',e=>{e.target.value=e.target.value.replace(/[^0-9]/g,'').slice(0,12)})}});
+
+    // same-as pemohon sync
+    const same = $('#sameAsPemohon');
+    const mapPemohonToOYD = {
+      nama:['#nama','#oyd_nama'], ic:['#ic','#oyd_ic'], jantina:['#jantina','#oyd_jantina'], pekerjaan:['#pekerjaan','#oyd_pekerjaan'], tugas_pekerjaan:['#tugas_pekerjaan','#oyd_tugas'], pendapatan_tahunan:['#pendapatan_tahunan','#oyd_pendapatan_tahunan'], tinggi_cm:['#tinggi_cm','#oyd_tinggi_cm'], berat_kg:['#berat_kg','#oyd_berat_kg'], merokok:['#merokok','#oyd_merokok']
+    };
+    function copyPemohonToOYD(){
+      Object.values(mapPemohonToOYD).forEach(([a,b])=>{const src=$(a), dst=$(b); if(src && dst){dst.value = src.value || ''}});
+    }
+    if(same){
+      same.addEventListener('change', (e)=>{
+        if(e.target.checked){copyPemohonToOYD();}
+      });
+      Object.values(mapPemohonToOYD).forEach(([a,b])=>{const src=$(a); if(src){src.addEventListener('input',()=>{ if(same.checked){copyPemohonToOYD();} });}});
+    }
+
+    // Navigation
+    $('#btnNext').addEventListener('click',()=>{ if(step<maxStep){
+        const cur=steps[step-1]; const req=[...cur.querySelectorAll('[required]')];
+        const ok=req.every(el=> el.value && (el.type!=='checkbox' || el.checked));
+        if(!ok){showToast('Sila lengkapkan maklumat wajib untuk teruskan.');return}
+        showStep(step+1)
+      }});
+    $('#btnBack').addEventListener('click',()=>showStep(Math.max(1,step-1)));
+
+    // Draft save/load
+    const KEY='borang_srl_draft_v3';
+    function saveDraft(){
+      const data=Object.fromEntries(new FormData($('#borang')).entries());
+      data.kronik=$('#kronik').value; data.ditolak=$('#ditolak').value; data.setuju=$('#setuju').checked; data.pdpa=$('#pdpa').checked; data.sameAsPemohon = same ? same.checked : false; data.jana_docx = $('#jana_docx') ? $('#jana_docx').checked : true;
+      localStorage.setItem(KEY, JSON.stringify(data)); showToast('Draf disimpan di peranti ini.');
+    }
+    function loadDraft(){
+      try{const d=JSON.parse(localStorage.getItem(KEY)||'null'); if(!d) return; for(const k in d){const el=document.getElementById(k); if(!el) continue; if(el.type==='checkbox'){el.checked=!!d[k]} else {el.value=d[k]}}
+        if(same && d.sameAsPemohon){copyPemohonToOYD();}
+      }catch(e){}
+    }
+    $('#btnDraft').addEventListener('click',saveDraft);
+    loadDraft();
+
+    function payloadFromForm(fd){
+      return {
+        tarikh: new Date().toISOString(),
+        // Pemohon
+        nama: fd.get('nama'), ic: fd.get('ic'), jantina: fd.get('jantina'), agama: fd.get('agama')||'', status: fd.get('status'), bil_anak: fd.get('bil_anak')||'0',
+        telefon: fd.get('telefon'), email: fd.get('email'), alamat: fd.get('alamat')||'',
+        pekerjaan: fd.get('pekerjaan')||'', tugas_pekerjaan: fd.get('tugas_pekerjaan')||'', syarikat: fd.get('syarikat')||'', pendapatan_tahunan: fd.get('pendapatan_tahunan')||'', tinggi_cm: fd.get('tinggi_cm')||'', berat_kg: fd.get('berat_kg')||'', merokok: fd.get('merokok')||'Tidak', bil_rokok: fd.get('bil_rokok')||'',
+        // Pasangan
+        psg_nama: fd.get('psg_nama')||'', psg_ic: fd.get('psg_ic')||'', psg_jantina: fd.get('psg_jantina')||'', psg_agama: fd.get('psg_agama')||'', psg_pekerjaan: fd.get('psg_pekerjaan')||'',
+        psg_tel: fd.get('psg_tel')||'', psg_email: fd.get('psg_email')||'', psg_syarikat: fd.get('psg_syarikat')||'', psg_merokok: fd.get('psg_merokok')||'', psg_bil_rokok: fd.get('psg_bil_rokok')||'', psg_status: fd.get('psg_status')||'',
+        // Orang Dilindungi
+        oyd_nama: fd.get('oyd_nama')||'', oyd_ic: fd.get('oyd_ic')||'', oyd_jantina: fd.get('oyd_jantina')||'', oyd_pekerjaan: fd.get('oyd_pekerjaan')||'', oyd_tugas: fd.get('oyd_tugas')||'',
+        oyd_pendapatan_tahunan: fd.get('oyd_pendapatan_tahunan')||'', oyd_syarikat: fd.get('oyd_syarikat')||'', oyd_tinggi_cm: fd.get('oyd_tinggi_cm')||'', oyd_berat_kg: fd.get('oyd_berat_kg')||'', oyd_merokok: fd.get('oyd_merokok')||'',
+        // Penama
+        penama_nama: fd.get('penama_nama')||'', penama_ic: fd.get('penama_ic')||'', penama_telefon: fd.get('penama_telefon')||'', penama_pekerjaan: fd.get('penama_pekerjaan')||'', penama_alamat: fd.get('penama_alamat')||'',
+        // Pelan & Bayaran
+        pelan: fd.get('pelan')||'', mod_bayaran: fd.get('mod_bayaran')||'', kaedah_bayaran: fd.get('kaedah_bayaran')||'', premium_rm: fd.get('premium_rm')||'',
+        // Bank
+        bank_pemohon: fd.get('bank_pemohon')||'', akaun_pemohon: fd.get('akaun_pemohon')||'',
+        // Kesihatan
+        kronik: $('#kronik').value, ditolak: $('#ditolak').value, sakit: $('#sakit').value||'', hospital: $('#hospital').value||'', tahun: $('#tahun').value||'', kondisi: $('#kondisi').value||'', butiran_sihat: $('#butiran_sihat').value||'',
+      }
+    }
+
+    // ====== DOCX GENERATOR (client) ======
+    async function generateDocx(payload){
+      const { Document, Packer, Paragraph, HeadingLevel, TextRun, Table, TableRow, TableCell, WidthType } = docx;
+      const title = new Paragraph({ text: 'Permohonan Takaful (Pra-Pendaftaran)', heading: HeadingLevel.HEADING_1 });
+      const small = (t)=> new Paragraph({ children:[ new TextRun({ text:t, size:20 }) ]});
+      const cell=(t)=> new TableCell({ children:[ small(t||'') ]});
+      const rows = [
+        ['Tarikh', new Date(payload.tarikh).toLocaleString()],
+        ['Nama', payload.nama],['IC', payload.ic],['Jantina', payload.jantina],['Status', payload.status],['Telefon', payload.telefon],['Emel', payload.email],
+        ['Alamat', payload.alamat],['Pekerjaan/Tugas', `${payload.pekerjaan} / ${payload.tugas_pekerjaan}`],['Syarikat', payload.syarikat],
+        ['Pendapatan Tahunan', `RM ${payload.pendapatan_tahunan}`],['Tinggi/Berat', `${payload.tinggi_cm} cm / ${payload.berat_kg} kg`],['Merokok', `${payload.merokok} ${payload.bil_rokok?`(${payload.bil_rokok}/hari)`:''}`],
+        ['— ORANG DILINDUNGI —',''],['Nama', payload.oyd_nama],['IC', payload.oyd_ic],['Jantina', payload.oyd_jantina],['Pekerjaan/Tugas', `${payload.oyd_pekerjaan} / ${payload.oyd_tugas}`],['Pendapatan Tahunan', `RM ${payload.oyd_pendapatan_tahunan}`],['Tinggi/Berat', `${payload.oyd_tinggi_cm} cm / ${payload.oyd_berat_kg} kg`],['Merokok', payload.oyd_merokok],
+        ['— PENAMA —',''],['Nama', payload.penama_nama],['IC', payload.penama_ic],['Telefon', payload.penama_telefon],['Pekerjaan', payload.penama_pekerjaan],['Alamat', payload.penama_alamat],
+        ['— PELAN & BAYARAN —',''],['Pelan', payload.pelan],['Mod/Kaedah', `${payload.mod_bayaran} / ${payload.kaedah_bayaran}`],['Caruman', `RM ${payload.premium_rm}`],
+        ['— BANK —',''],['Bank Pemohon', payload.bank_pemohon],['No. Akaun', payload.akaun_pemohon],
+        ['— KESIHATAN —',''],['Kronik / Ditolak', `${payload.kronik} / ${payload.ditolak}`],[ 'Sakit/Hospital/Tahun/Kondisi', `${payload.sakit} / ${payload.hospital} / ${payload.tahun} / ${payload.kondisi}`],[ 'Butiran', payload.butiran_sihat ]
+      ].map(([a,b])=> new TableRow({ children:[ cell(a), cell(b) ] }));
+
+      const table = new Table({ rows, width: { size: 100, type: WidthType.PERCENTAGE } });
+      const doc = new Document({ sections:[{ children:[ title, small('Powered by Sukor Rija Legacy'), table ] }] });
+      const blob = await Packer.toBlob(doc);
+      const fname = `Permohonan_Takaful_${(payload.nama||'').replace(/[^A-Za-z0-9_ -]/g,'')}_${payload.ic||''}.docx`;
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+    }
+
+    // Submit
+    $('#hantar').addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      const cur=steps[step-1]; const req=[...cur.querySelectorAll('[required]')];
+      const ok=req.every(el=> el.value && (el.type!=='checkbox' || el.checked));
+      if(!ok){showToast('Lengkapkan semua medan wajib.');return}
+      if( String($('#captcha').value).trim() != String(captchaAns) ){ showToast('Jawapan captcha tidak tepat.'); return }
+
+      const fd = new FormData($('#borang'));
+      const payload = payloadFromForm(fd);
+
+      let sent=false;
+      try{
+        await fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(payload), headers:{'Content-Type':'application/json'}});
+        sent = true;
+      }catch(err){
+        // Fallback ke WhatsApp
+        const msg = encodeURIComponent(`Permohonan Takaful (Pra-daftar)
+Nama: ${payload.nama}
+IC: ${payload.ic}
+Telefon: ${payload.telefon}`);
+        window.location.href = `https://wa.me/${WHATSAPP_NO}?text=${msg}`;
+      }
+
+      if($('#jana_docx')?.checked){
+        try { await generateDocx(payload); } catch(e){ console.error(e); }
+      }
+
+      localStorage.removeItem(KEY);
+      $('#borang').reset(); captchaAns=genCaptcha(); showStep(1);
+      showToast(sent? 'Permohonan dihantar & .docx dijana.' : 'Permohonan dihantar melalui WhatsApp & .docx dijana.');
+    });
+
+    // Init
+    showStep(1);
+  </script>
+</body>
+</html>
